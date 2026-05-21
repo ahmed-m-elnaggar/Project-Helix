@@ -36,6 +36,21 @@ def compare_sequences(seq1, seq2):
     for m in mutations:
         print(f"Position {m[0]}: {m[1]} → {m[2]}")
 
-analyze_dna("ATCGTTACGATCG")
-print()
-compare_sequences("ATCGTTACGATCG", "ATCGTAACGTTCG")
+def read_fasta(filename):
+    sequences = {}
+    with open(filename, "r") as file:
+        for line in file:
+            if line.startswith(">"):
+                name = line.strip()[1:]
+            else:
+                sequences[name] = line.strip()
+    return sequences
+
+sequences = read_fasta("sequences.fasta")
+
+for name, sequence in sequences.items():
+    print(f"\n--- {name} ---")
+    analyze_dna(sequence)
+
+seq_list = list(sequences.values())
+compare_sequences(seq_list[0], seq_list[1])

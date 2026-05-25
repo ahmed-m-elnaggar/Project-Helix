@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 
 data = {
@@ -14,5 +15,15 @@ most_disrupted = df.sort_values("difference", ascending=False)
 
 threshold = 2.0
 significant = df[df["difference"].abs() > threshold]
-print("\n--- SIGNIFICANTLY DISRUPTED GENES ---")
-print(significant)
+x = df["gene"]
+y_healthy = df["healthy"]
+y_alzheimers = df["alzheimers"]
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, y_healthy, marker="o", label="Healthy", color="blue")
+plt.plot(x, y_alzheimers, marker="o", label="Alzheimer's", color="red")
+plt.title("Gene Expression: Healthy vs Alzheimer's")
+plt.xlabel("Gene")
+plt.ylabel("Expression Level")
+plt.legend()
+plt.show()
